@@ -33,7 +33,7 @@ class ForceChart extends StatelessWidget {
       displayLength,
       (index) => FlSpot(
         index.toDouble(),
-        selectedDataStream1[len1 - displayLength + index],
+        selectedDataStream1[index],
       ),
     );
 
@@ -41,7 +41,7 @@ class ForceChart extends StatelessWidget {
       displayLength,
       (index) => FlSpot(
         index.toDouble(),
-        selectedDataStream2[len2 - displayLength + index],
+        selectedDataStream2[index],
       ),
     );
 
@@ -83,7 +83,7 @@ class ForceChart extends StatelessWidget {
       LineChartData(
         gridData: FlGridData(
           show: true,
-          drawVerticalLine: true,
+          drawVerticalLine: false,
           horizontalInterval: horizontalInterval,
           verticalInterval: displayLength / 5,
           getDrawingHorizontalLine: (value) {
@@ -131,7 +131,7 @@ class ForceChart extends StatelessWidget {
           ),
         ),
         minX: 0,
-        maxX: displayLength.toDouble(),
+        maxX: 500,
         minY: minY,
         maxY: maxY,
         lineBarsData: [

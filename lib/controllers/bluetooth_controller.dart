@@ -140,7 +140,7 @@ class BluetoothController extends GetxController {
         .listen((data) {
       _receivedData1.value = String.fromCharCodes(data);
 
-      print('수신된 데이터 1: $receivedData1');
+      //print('수신된 데이터 1: $receivedData1');
     }, onError: (Object error) {
       // 데이터 수신 중 에러 처리
       print('노티피케이션 1 에러: $error');
@@ -158,7 +158,7 @@ class BluetoothController extends GetxController {
         .listen((data) {
       _receivedData2.value = String.fromCharCodes(data);
 
-      print('수신된 데이터 2: $receivedData2');
+      //print('수신된 데이터 2: $receivedData2');
       //데이터 저장
       dataRepository.addData(receivedData1, receivedData2);
     }, onError: (Object error) {
