@@ -107,8 +107,8 @@ class ForceChart extends StatelessWidget {
           ),
         ),
         minX: 0,
-        // maxX: maxDisplayPoints.toDouble(),
-        maxX: 100,
+        maxX: maxDisplayPoints.toDouble(),
+        //maxX: 100,
         minY: 0,
         maxY: max(10, maxY),
         lineBarsData: [
@@ -117,7 +117,7 @@ class ForceChart extends StatelessWidget {
             curveSmoothness: 0.1,
             preventCurveOverShooting: true,
             spots: spots1,
-            isCurved: false,
+            isCurved: true,
             gradient: const LinearGradient(
               colors: [
                 Color(0xff23b6e6),
