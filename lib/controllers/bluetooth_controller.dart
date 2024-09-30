@@ -44,6 +44,12 @@ class BluetoothController extends GetxController {
     return 0.0;
   }
 
+  double get totalForce {
+    final double addValue = receivedData1 + receivedData2;
+    final roundedValue = (addValue * 100).roundToDouble() / 100;
+    return roundedValue;
+  }
+
   double get weightRatio {
     if (receivedData2 == 0 && receivedData1 != 0) {
       return 0;

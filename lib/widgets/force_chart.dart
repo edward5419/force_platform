@@ -107,16 +107,17 @@ class ForceChart extends StatelessWidget {
           ),
         ),
         minX: 0,
-        maxX: 1000,
+        // maxX: maxDisplayPoints.toDouble(),
+        maxX: 100,
         minY: 0,
         maxY: max(10, maxY),
         lineBarsData: [
           // 첫 번째 곡선 데이터
           LineChartBarData(
-            curveSmoothness: 1,
+            curveSmoothness: 0.1,
             preventCurveOverShooting: true,
             spots: spots1,
-            isCurved: true,
+            isCurved: false,
             gradient: const LinearGradient(
               colors: [
                 Color(0xff23b6e6),
@@ -126,7 +127,7 @@ class ForceChart extends StatelessWidget {
             barWidth: 2,
             isStrokeCapRound: true,
             dotData: const FlDotData(
-              show: false,
+              show: true,
             ),
             belowBarData: BarAreaData(
               show: true,
@@ -144,6 +145,7 @@ class ForceChart extends StatelessWidget {
           LineChartBarData(
             spots: spots2,
             isCurved: true,
+            curveSmoothness: 0.1,
             gradient: const LinearGradient(
               colors: [
                 Color(0xfffa0000),

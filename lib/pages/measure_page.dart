@@ -44,8 +44,7 @@ class _MeasurePageState extends State<MeasurePage> {
               Expanded(
                 child: Obx(
                   () => TotalWeight(
-                    totalWeight:
-                        controller.receivedData1 + controller.receivedData2,
+                    totalWeight: controller.totalForce,
                   ),
                 ),
               ),
