@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,7 @@ class ForceChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 데이터 포인트 생성
-    final int maxDisplayPoints = 100; // 최대 표시할 데이터 포인트 수
+    const int maxDisplayPoints = 1000;
     final int len1 = selectedDataStream1.length;
     final int len2 = selectedDataStream2.length;
     final int len = len1 < len2 ? len1 : len2;
@@ -56,12 +58,12 @@ class ForceChart extends StatelessWidget {
     maxY = maxY * 1.2;
 
     return LineChart(
+      duration: Duration.zero,
       LineChartData(
+        // 기존의 LineChartData 설정들
         gridData: FlGridData(
           show: true,
           drawVerticalLine: true,
-          horizontalInterval: (maxY - minY) / 5,
-          verticalInterval: displayLength / 5,
           getDrawingHorizontalLine: (value) {
             return FlLine(
               color: const Color(0xff37434d).withOpacity(0.2),
@@ -88,7 +90,6 @@ class ForceChart extends StatelessWidget {
               showTitles: true,
               reservedSize: 22,
               getTitlesWidget: bottomTitleWidgets,
-              interval: displayLength / 5,
             ),
           ),
           leftTitles: AxisTitles(
@@ -96,7 +97,6 @@ class ForceChart extends StatelessWidget {
               showTitles: true,
               getTitlesWidget: leftTitleWidgets,
               reservedSize: 40,
-              interval: (maxY - minY) / 5,
             ),
           ),
         ),
@@ -107,11 +107,14 @@ class ForceChart extends StatelessWidget {
           ),
         ),
         minX: 0,
-        maxX: displayLength.toDouble(),
-        minY: minY,
-        maxY: maxY,
+        maxX: 1000,
+        minY: 0,
+        maxY: max(10, maxY),
         lineBarsData: [
+          // 첫 번째 곡선 데이터
           LineChartBarData(
+            curveSmoothness: 1,
+            preventCurveOverShooting: true,
             spots: spots1,
             isCurved: true,
             gradient: const LinearGradient(
@@ -126,9 +129,18 @@ class ForceChart extends StatelessWidget {
               show: false,
             ),
             belowBarData: BarAreaData(
-              show: false,
+              show: true,
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xff23b6e6).withOpacity(0.3),
+                  Color(0xff02d39a).withOpacity(0.3),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
           ),
+          // 두 번째 곡선 데이터
           LineChartBarData(
             spots: spots2,
             isCurved: true,
@@ -144,7 +156,15 @@ class ForceChart extends StatelessWidget {
               show: false,
             ),
             belowBarData: BarAreaData(
-              show: false,
+              show: true,
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xfffa0000).withOpacity(0.3),
+                  Color(0xffffdd00).withOpacity(0.3),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
           ),
         ],

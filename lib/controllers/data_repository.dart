@@ -13,7 +13,7 @@ class DataRepository extends GetxService {
     _dataStream2.insert(0, value2);
 
     // 데이터 길이 제한 (예: 100)
-    if (_dataStream1.length > 500) {
+    if (_dataStream1.length > 1000) {
       _dataStream1.removeLast();
       _dataStream2.removeLast();
     }
