@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:force_platform/settings/chart_setting.dart';
 
 class ForceChart extends StatelessWidget {
   final List<double> selectedDataStream1;
@@ -16,7 +17,7 @@ class ForceChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 데이터 포인트 생성
-    const int maxDisplayPoints = 1000;
+    const int maxDisplayPoints = ChartSetting.maxX;
     final int len1 = selectedDataStream1.length;
     final int len2 = selectedDataStream2.length;
     final int len = len1 < len2 ? len1 : len2;
@@ -114,8 +115,7 @@ class ForceChart extends StatelessWidget {
         lineBarsData: [
           // 첫 번째 곡선 데이터
           LineChartBarData(
-            curveSmoothness: 0.1,
-            preventCurveOverShooting: true,
+            curveSmoothness: 0.5,
             spots: spots1,
             isCurved: true,
             gradient: const LinearGradient(
@@ -127,7 +127,7 @@ class ForceChart extends StatelessWidget {
             barWidth: 2,
             isStrokeCapRound: true,
             dotData: const FlDotData(
-              show: false,
+              show: ChartSetting.showDot,
             ),
             belowBarData: BarAreaData(
               show: true,
@@ -145,7 +145,7 @@ class ForceChart extends StatelessWidget {
           LineChartBarData(
             spots: spots2,
             isCurved: true,
-            curveSmoothness: 0.1,
+            curveSmoothness: 0.5,
             gradient: const LinearGradient(
               colors: [
                 Color(0xfffa0000),
@@ -155,7 +155,7 @@ class ForceChart extends StatelessWidget {
             barWidth: 2,
             isStrokeCapRound: true,
             dotData: const FlDotData(
-              show: false,
+              show: ChartSetting.showDot,
             ),
             belowBarData: BarAreaData(
               show: true,

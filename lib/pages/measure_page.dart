@@ -26,8 +26,7 @@ class _MeasurePageState extends State<MeasurePage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    controller.notificationStream1?.cancel();
-    controller.notificationStream2?.cancel();
+    controller.cancelNotification();
     dataRepository.clearData();
     super.dispose();
   }
@@ -35,7 +34,21 @@ class _MeasurePageState extends State<MeasurePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Measure balance")),
+      appBar: AppBar(
+        title: Text("Measure balance"),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              dataRepository.toggleUpdating();
+            },
+            child: Obx(() => Text(
+                  dataRepository.isUpdating.value
+                      ? "Stop Updating"
+                      : "Start Updating",
+                )),
+          ),
+        ],
+      ),
       body: Column(children: [
         Expanded(
           flex: 3,
