@@ -127,7 +127,7 @@ class ForceChart extends StatelessWidget {
             barWidth: 2,
             isStrokeCapRound: true,
             dotData: const FlDotData(
-              show: true,
+              show: false,
             ),
             belowBarData: BarAreaData(
               show: true,

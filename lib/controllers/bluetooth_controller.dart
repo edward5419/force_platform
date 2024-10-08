@@ -65,6 +65,7 @@ class BluetoothController extends GetxController {
   void onInit() {
     super.onInit();
     checkPermissionsAndStartScan();
+    print("블루투스 프로세스 시작");
   }
 
   @override
@@ -81,7 +82,10 @@ class BluetoothController extends GetxController {
     // Android의 경우 위치 권한 및 BLE 권한을 요청해야 합니다.
     // 'permission_handler' 패키지를 사용할 수 있습니다.
     // 여기서는 생략하고 바로 스캔을 시작합니다.
-    startScan();
+    if (_isConnected.value == false) {
+      print("스캔시작");
+      startScan();
+    }
   }
 
   void startScan() {
@@ -96,6 +100,7 @@ class BluetoothController extends GetxController {
         espDevice = device;
         _isScanning.value = false;
 
+        print("디바이스 상태 : ${device.connectable}");
         scanStream?.cancel();
         connectToDevice();
       }
@@ -192,7 +197,7 @@ class BluetoothController extends GetxController {
 
       print('장치 연결이 해제되었습니다.');
       // 재연결을 위해 광고 다시 시작
-      startScan();
+      //startScan();
     }
   }
 }

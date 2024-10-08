@@ -19,8 +19,10 @@ class BlueToothState extends GetView<BluetoothController> {
         // InkWell을 Card 내부로 이동
         onTap: () {
           if (!controller.isConnected) {
+            print("연결 시작");
             controller.startScan();
           } else {
+            print("연결 종료");
             controller.disconnectDevice();
           }
           print("Bluetooth card tapped");
