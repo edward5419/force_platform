@@ -16,16 +16,15 @@ class MeasurePage extends StatefulWidget {
 class _MeasurePageState extends State<MeasurePage> {
   final BluetoothController controller = Get.find<BluetoothController>();
   final DataRepository dataRepository = Get.find<DataRepository>();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller.subscribeToNotifications();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controller.cancelNotification();
     dataRepository.clearData();
     super.dispose();
@@ -36,18 +35,6 @@ class _MeasurePageState extends State<MeasurePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Measure balance"),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              dataRepository.toggleUpdating();
-            },
-            child: Obx(() => Text(
-                  dataRepository.isUpdating.value
-                      ? "Stop Updating"
-                      : "Start Updating",
-                )),
-          ),
-        ],
       ),
       body: Column(children: [
         Expanded(
@@ -92,17 +79,73 @@ class _MeasurePageState extends State<MeasurePage> {
           ),
         ),
         Expanded(
-            flex: 5,
-            child: Card(
-              child: Center(
+          flex: 6,
+          child: Card(
+            margin: EdgeInsets.all(10),
+            child: Stack(
+              children: [
+                Center(
                   child: Obx(
-                () => ForceChart(
-                  selectedDataStream1: dataRepository.dataStream1,
-                  selectedDataStream2: dataRepository.dataStream2,
+                    () {
+                      if (dataRepository.showAvgValue.value) {
+                        return ForceChart(
+                          selectedDataStream1: dataRepository.avgDataStream1,
+                          selectedDataStream2: dataRepository.avgDataStream2,
+                        );
+                      } else {
+                        return ForceChart(
+                          selectedDataStream1: dataRepository.dataStream1,
+                          selectedDataStream2: dataRepository.dataStream2,
+                        );
+                      }
+                    },
+                  ),
                 ),
-              )),
-              margin: EdgeInsets.all(10),
-            )),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Column(
+                    children: [
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     dataRepository.toggleUpdating();
+                      //   },
+                      //   child: Obx(() => Text(
+                      //         dataRepository.isUpdating.value
+                      //             ? "Stop Updating"
+                      //             : "Start Updating",
+                      //         style: TextStyle(fontSize: 12),
+                      //       )),
+                      //   style: ElevatedButton.styleFrom(
+                      //     padding:
+                      //         EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      //     minimumSize: Size(0, 0),
+                      //   ),
+                      // ),
+
+                      ElevatedButton(
+                        onPressed: () {
+                          dataRepository.toggleShowAvgValue();
+                        },
+                        child: Obx(() => Text(
+                              "Average",
+                              style: dataRepository.showAvgValue.value
+                                  ? TextStyle(fontSize: 18)
+                                  : TextStyle(fontSize: 18, color: Colors.grey),
+                            )),
+                        style: ElevatedButton.styleFrom(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          minimumSize: Size(0, 0),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ]),
     );
   }

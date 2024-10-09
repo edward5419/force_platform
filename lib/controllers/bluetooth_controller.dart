@@ -176,7 +176,7 @@ class BluetoothController extends GetxController {
           _receivedData2.value = value2.toString();
 
           dataRepository.addData(value1, value2);
-          print("수신된 데이터: $value1, $value2");
+          //print("수신된 데이터: $value1, $value2");
         } else {
           print("데이터 파싱 오류: $dataString");
         }

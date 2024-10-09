@@ -1,5 +1,49 @@
 import 'package:flutter/material.dart';
-//import 'package:audioplayers/audioplayers.dart'; // 소리 재생을 위한 라이브러리 추가
+import 'package:just_audio/just_audio.dart';
+
+// 싱글톤 AudioPlayer 관리자
+class AudioManager {
+  static final AudioManager _instance = AudioManager._internal();
+  late AudioPlayer _audioPlayer;
+  bool _isInitialized = false;
+
+  factory AudioManager() {
+    return _instance;
+  }
+
+  AudioManager._internal() {
+    _audioPlayer = AudioPlayer();
+  }
+
+  Future<void> initialize() async {
+    if (!_isInitialized) {
+      try {
+        await _audioPlayer.setAsset('assets/sounds/beep.wav');
+        await _audioPlayer.setLoopMode(LoopMode.all);
+        _isInitialized = true;
+      } catch (e) {
+        print("Error initializing audio: $e");
+      }
+    }
+  }
+
+  void play() {
+    if (_isInitialized) {
+      _audioPlayer.play();
+    }
+  }
+
+  void stop() {
+    if (_isInitialized) {
+      _audioPlayer.stop();
+    }
+  }
+
+  void dispose() {
+    _audioPlayer.dispose();
+    _isInitialized = false;
+  }
+}
 
 class WeightCenterBar extends StatefulWidget {
   final double weightPercentage;
@@ -17,48 +61,60 @@ class WeightCenterBar extends StatefulWidget {
 }
 
 class _WeightCenterBarState extends State<WeightCenterBar> {
-  // final AudioPlayer _audioPlayer = AudioPlayer(); // AudioPlayer 인스턴스 생성
+  bool isInRedZone = false;
+  double _previousWeightPercentage = 0;
+  late AudioManager _audioManager;
 
   @override
   void initState() {
     super.initState();
-
-    // 앱이 멈추지 않도록 비동기적으로 소리를 재생
-    //_checkAndPlaySound();
+    _audioManager = AudioManager();
+    _audioManager.initialize();
+    _previousWeightPercentage = widget.weightPercentage;
   }
 
   @override
   void didUpdateWidget(WeightCenterBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    // weightPercentage가 변경될 때만 소리를 재생
     if (widget.weightPercentage != oldWidget.weightPercentage) {
-      //_checkAndPlaySound();
+      _checkAndPlaySound();
     }
   }
 
-  // 비동기적으로 경고음을 재생하는 함수
-  // Future<void> _checkAndPlaySound() async {
-  //   if (widget.weightPercentage < 0.1 || widget.weightPercentage > 0.9) {
-  //     // 경고음 재생 (로컬 혹은 원격 경로의 사운드를 재생할 수 있음)
-  //     await _audioPlayer.play(AssetSource('sounds/beep.mp3'));
-  //   }
-  // }
-
-  @override
-  void dispose() {
-    //_audioPlayer.dispose(); // AudioPlayer 자원 해제
-    super.dispose();
+  void _checkAndPlaySound() {
+    if (!isInRedZone &&
+        (widget.weightPercentage < 0.2 || widget.weightPercentage > 0.8)) {
+      isInRedZone = true;
+      _audioManager.play();
+    } else if (widget.weightPercentage >= 0.2 &&
+        widget.weightPercentage <= 0.8) {
+      if (isInRedZone) {
+        _audioManager.stop();
+        isInRedZone = false;
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(widget.width, widget.height),
-      painter: WeightCenterPainter(widget.weightPercentage),
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(
+          begin: _previousWeightPercentage, end: widget.weightPercentage),
+      duration: Duration(milliseconds: 300),
+      onEnd: () {
+        _previousWeightPercentage = widget.weightPercentage;
+      },
+      builder: (context, value, child) {
+        return CustomPaint(
+          size: Size(widget.width, widget.height),
+          painter: WeightCenterPainter(value),
+        );
+      },
     );
   }
 }
+
+// WeightCenterPainter 클래스는 이전과 동일합니다.
 
 class WeightCenterPainter extends CustomPainter {
   final double weightPercentage;
@@ -75,6 +131,26 @@ class WeightCenterPainter extends CustomPainter {
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),
+        Radius.circular(size.height / 2),
+      ),
+      paint,
+    );
+
+    paint.color = Colors.red.withOpacity(0.3);
+
+    // 왼쪽 경고 영역
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, 0, size.width * 0.2, size.height),
+        Radius.circular(size.height / 2),
+      ),
+      paint,
+    );
+
+    // 오른쪽 경고 영역
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(size.width * 0.8, 0, size.width * 0.2, size.height),
         Radius.circular(size.height / 2),
       ),
       paint,
@@ -103,5 +179,6 @@ class WeightCenterPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
+  bool shouldRepaint(WeightCenterPainter oldDelegate) =>
+      oldDelegate.weightPercentage != weightPercentage;
 }
