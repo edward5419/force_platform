@@ -35,6 +35,21 @@ class _MeasurePageState extends State<MeasurePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Measure balance"),
+        actions: [
+          ElevatedButton(
+              onPressed: () async {
+                try {
+                  await dataRepository.saveDataRecord();
+                  Get.back();
+                  Get.snackbar('Success', 'Data saved');
+                  print("백!");
+                } catch (e) {
+                  print('Error saving data: $e');
+                  Get.snackbar('Error', 'Failed to save data');
+                }
+              },
+              child: Text("Save and exit")),
+        ],
       ),
       body: Column(children: [
         Expanded(

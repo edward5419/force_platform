@@ -62,6 +62,7 @@ class ForceChart extends StatelessWidget {
       duration: Duration.zero,
       LineChartData(
         // 기존의 LineChartData 설정들
+        
         gridData: FlGridData(
           show: true,
           drawVerticalLine: true,

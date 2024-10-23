@@ -47,7 +47,7 @@ class HomePageBody extends StatelessWidget {
                   child: InkWell(
                     // InkWell을 Card 내부로 이동
                     onTap: () {
-                      // 터치 시 실행할 동작
+                      Get.toNamed('/saved_records_page');
                       print("Pending actions card tapped");
                     },
                     borderRadius: BorderRadius.circular(15), // Card와 같은 모서리 반경
