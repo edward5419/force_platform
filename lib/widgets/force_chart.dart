@@ -7,17 +7,18 @@ import 'package:force_platform/settings/chart_setting.dart';
 class ForceChart extends StatelessWidget {
   final List<double> selectedDataStream1;
   final List<double> selectedDataStream2;
-
-  const ForceChart({
-    Key? key,
-    required this.selectedDataStream1,
-    required this.selectedDataStream2,
-  }) : super(key: key);
+  final int maxDisplayPoints;
+  const ForceChart(
+      {Key? key,
+      required this.selectedDataStream1,
+      required this.selectedDataStream2,
+      required this.maxDisplayPoints})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // 데이터 포인트 생성
-    const int maxDisplayPoints = ChartSetting.maxX;
+
     final int len1 = selectedDataStream1.length;
     final int len2 = selectedDataStream2.length;
     final int len = len1 < len2 ? len1 : len2;
@@ -62,7 +63,7 @@ class ForceChart extends StatelessWidget {
       duration: Duration.zero,
       LineChartData(
         // 기존의 LineChartData 설정들
-        
+
         gridData: FlGridData(
           show: true,
           drawVerticalLine: true,
@@ -89,7 +90,7 @@ class ForceChart extends StatelessWidget {
           ),
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
-              showTitles: true,
+              showTitles: false,
               reservedSize: 22,
               getTitlesWidget: bottomTitleWidgets,
             ),

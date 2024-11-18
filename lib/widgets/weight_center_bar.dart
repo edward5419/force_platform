@@ -85,11 +85,11 @@ class _WeightCenterBarState extends State<WeightCenterBar> {
     if (!isInRedZone &&
         (widget.weightPercentage < 0.2 || widget.weightPercentage > 0.8)) {
       isInRedZone = true;
-      _audioManager.play();
+      //_audioManager.play();
     } else if (widget.weightPercentage >= 0.2 &&
         widget.weightPercentage <= 0.8) {
       if (isInRedZone) {
-        _audioManager.stop();
+        //_audioManager.stop();
         isInRedZone = false;
       }
     }

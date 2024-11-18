@@ -36,6 +36,7 @@ class BluetoothController extends GetxController {
   // Getter for receivedData2
   double get receivedData2 {
     final parsedValue = double.tryParse(_receivedData2.value);
+    print(parsedValue);
     if (parsedValue != null) {
       return (parsedValue * 100).roundToDouble() / 100;
     }

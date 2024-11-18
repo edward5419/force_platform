@@ -38,7 +38,7 @@ class SavedRecordsPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final record = records[index];
                 // timestamp를 읽기 쉬운 형식으로 변환
-                final formattedTimestamp = DateFormat('yyyy-MM-dd – kk:mm:ss')
+                final formattedTimestamp = DateFormat('yyyy-MM-dd - kk:mm:ss')
                     .format(DateTime.parse(record.timestamp));
 
                 return Card(
@@ -49,8 +49,8 @@ class SavedRecordsPage extends StatelessWidget {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(15),
                     onTap: () {
-                      // DataRecordDetailPage로 이동하며 record 전달
-                      //Get.to(() => DataRecordDetailPage(dataRecord: record));
+                      Get.toNamed("/record_page",
+                          arguments: {"record": record});
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
