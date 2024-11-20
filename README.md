@@ -18,6 +18,16 @@ The following devices will be required:
 - Two load cells
 - ADS1220 ADC module
 
-- example photo
-- ![homepage](https://github.com/edward5419/force_platform/blob/main/readme_data/home_page.jpg)
-- 
+Example image
+- Homepage
+- ![home page](https://github.com/edward5419/force_platform/blob/main/readme_data/home_page.jpg)
+- Measure page
+- ![measure page](https://github.com/edward5419/force_platform/blob/main/readme_data/measure_page.jpg)
+- Record List
+- ![record list](https://github.com/edward5419/force_platform/blob/main/readme_data/record_list.jpg)
+- Record page
+- ![record page](https://github.com/edward5419/force_platform/blob/main/readme_data/record_page.jpg)
+- test video
+- [Watch my video](https://github.com/edward5419/force_platform/blob/main/readme_data/test_video.mp4)
+
+
