@@ -1,16 +1,19 @@
-# force_platform
+# Force-platform-project
 
-A new Flutter project.
+When you exercise, it is difficult for your body to be in equilibrium. There is a force platform, which is a product for displaying specific figures, but it is difficult to have a gym, or an individual because it is expensive. This project aims to make a cheap version of the force platform system yourself.
 
-## Getting Started
+The following technologies will be used for this project:
 
-This project is a starting point for a Flutter application.
+- Flutter
+- Embedded System
+- Firmware
+- DSP (Digital Signal Processing)
+- ADC (Analog-to-Digital Converter)
+- Bluetooth (BLE)
 
-A few resources to get you started if this is your first Flutter project:
+The following devices will be required:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Android tablet
+- ESP32 development board
+- Two load cells
+- ADS1220 ADC module
