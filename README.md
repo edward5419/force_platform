@@ -28,6 +28,6 @@ Example image
 - Record page
 ![record page](https://github.com/edward5419/force_platform/blob/main/readme_data/record_page.jpg)
 - test video
-[Watch my video](https://github.com/edward5419/force_platform/blob/main/readme_data/test_video.mp4)
+[Watch my video](https://github.com/edward5419/force_platform/blob/main/readme_data/test_video.gif)
 
 
