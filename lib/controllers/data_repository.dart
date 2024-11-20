@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:force_platform/settings/chart_setting.dart';
-import './database_helper.dart'; // 실제 경로로 변경하세요
+import './database_helper.dart';
 import 'dart:convert';
+import '../models/data_record.dart';
 
 class DataRepository extends GetxService {
   final RxList<double> _dataStream1 = <double>[].obs;
@@ -37,10 +38,8 @@ class DataRepository extends GetxService {
     }
   }
 
-  // 데이터 업데이트를 제어하는 플래그
   RxBool isUpdating = true.obs;
 
-  // 업데이트 플래그를 토글하는 메서드
   void toggleUpdating() {
     isUpdating.value = !isUpdating.value;
     print("Updating is now ${isUpdating.value ? 'enabled' : 'disabled'}");
@@ -56,14 +55,12 @@ class DataRepository extends GetxService {
       return;
     }
 
-    // 스트림1에 데이터 추가
     _dataStream1.insert(0, value1);
     _dataRecord1.insert(0, value1);
 
-    // 스트림2에 데이터 추가
     _dataStream2.insert(0, value2);
     _dataRecord2.insert(0, value2);
-    // 데이터 길이 제한 (예: 1000개로 제한)
+
     if (_dataStream1.length > ChartSetting.maxX) {
       _dataStream1.removeLast();
     }
@@ -79,7 +76,7 @@ class DataRepository extends GetxService {
     _dataRecord2.clear();
   }
 
-  // 데이터 기록을 데이터베이스에 저장하는 메서드
+  // save data to database
   Future<void> saveDataRecord() async {
     final dbHelper = DatabaseHelper();
     String timestamp = DateTime.now().toIso8601String();
@@ -88,12 +85,11 @@ class DataRepository extends GetxService {
 
     print("Data saved at $timestamp");
 
-    //필요에 따라 저장 후 기록을 초기화할 수 있습니다.
     clearData();
-    print('세이브 완료');
+    print('save complete');
   }
 
-  // 저장된 데이터 기록을 모두 가져오는 메서드
+  // bring out data
   Future<List<DataRecord>> fetchDataRecords() async {
     final dbHelper = DatabaseHelper();
     final records = await dbHelper.getAllDataRecords();
@@ -107,19 +103,4 @@ class DataRepository extends GetxService {
       );
     }).toList();
   }
-}
-
-// DataRecord 모델 클래스
-class DataRecord {
-  final int id;
-  final String timestamp;
-  final List<double> dataStream1;
-  final List<double> dataStream2;
-
-  DataRecord({
-    required this.id,
-    required this.timestamp,
-    required this.dataStream1,
-    required this.dataStream2,
-  });
 }

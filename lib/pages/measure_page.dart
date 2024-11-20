@@ -43,7 +43,6 @@ class _MeasurePageState extends State<MeasurePage> {
                   await dataRepository.saveDataRecord();
                   Get.back();
                   Get.snackbar('Success', 'Data saved');
-                  print("백!");
                 } catch (e) {
                   print('Error saving data: $e');
                   Get.snackbar('Error', 'Failed to save data');
@@ -125,23 +124,7 @@ class _MeasurePageState extends State<MeasurePage> {
                     right: 10,
                     child: Column(
                       children: [
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     dataRepository.toggleUpdating();
-                        //   },
-                        //   child: Obx(() => Text(
-                        //         dataRepository.isUpdating.value
-                        //             ? "Stop Updating"
-                        //             : "Start Updating",
-                        //         style: TextStyle(fontSize: 12),
-                        //       )),
-                        //   style: ElevatedButton.styleFrom(
-                        //     padding:
-                        //         EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        //     minimumSize: Size(0, 0),
-                        //   ),
-                        // ),
-
+                       
                         ElevatedButton(
                           onPressed: () {
                             dataRepository.toggleShowAvgValue();

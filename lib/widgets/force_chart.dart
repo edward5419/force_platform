@@ -17,7 +17,7 @@ class ForceChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 데이터 포인트 생성
+    // make data point
 
     final int len1 = selectedDataStream1.length;
     final int len2 = selectedDataStream2.length;
@@ -40,7 +40,7 @@ class ForceChart extends StatelessWidget {
       ),
     );
 
-    // 최대 최소 Y값 계산
+    // calculate maximum Y and X
     double minY = 0;
     double maxY = 0;
     if (spots1.isNotEmpty && spots2.isNotEmpty) {
@@ -55,14 +55,13 @@ class ForceChart extends StatelessWidget {
       ].reduce((a, b) => a > b ? a : b);
     }
 
-    // 여유 공간 추가
+    // add some space to Y and X
     minY = minY * 0.8;
     maxY = maxY * 1.2;
 
     return LineChart(
       duration: Duration.zero,
       LineChartData(
-        // 기존의 LineChartData 설정들
 
         gridData: FlGridData(
           show: true,
@@ -115,7 +114,7 @@ class ForceChart extends StatelessWidget {
         minY: 0,
         maxY: max(10, maxY),
         lineBarsData: [
-          // 첫 번째 곡선 데이터
+          // first line data
           LineChartBarData(
             curveSmoothness: 0.5,
             spots: spots1,
@@ -143,7 +142,7 @@ class ForceChart extends StatelessWidget {
               ),
             ),
           ),
-          // 두 번째 곡선 데이터
+          // second line data
           LineChartBarData(
             spots: spots2,
             isCurved: true,
@@ -176,7 +175,7 @@ class ForceChart extends StatelessWidget {
     );
   }
 
-  // X축 라벨 위젯
+  // X label widget
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Color(0xff68737d),
@@ -191,7 +190,7 @@ class ForceChart extends StatelessWidget {
     );
   }
 
-  // Y축 라벨 위젯
+  // Y label widget
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Color(0xff68737d),

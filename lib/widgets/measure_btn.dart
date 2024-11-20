@@ -16,17 +16,16 @@ class MeasureBtn extends GetView<BluetoothController> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       margin: EdgeInsets.all(20),
       child: InkWell(
-        // InkWell을 Card 내부로 이동
         onTap: () {
-          // 터치 시 실행할 동작
+
           if (controller.isConnected) {
             Get.toNamed("/measure_page");
-            print("Fitness card tapped");
+           
           } else {
             //nothing
           }
         },
-        borderRadius: BorderRadius.circular(15), // Card와 같은 모서리 반경
+        borderRadius: BorderRadius.circular(15),
         child: Obx(
           () => Center(
             child:

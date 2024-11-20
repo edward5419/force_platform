@@ -4,6 +4,7 @@ import 'package:force_platform/controllers/data_repository.dart';
 //import 'package:force_platform/models/data_record.dart'; // DataRecord 모델 경로에 맞게 수정
 //import 'package:force_platform/pages/data_record_detail_page.dart';
 import 'package:intl/intl.dart'; // 날짜 포맷팅을 위해 필요
+import '../models/data_record.dart';
 
 class SavedRecordsPage extends StatelessWidget {
   const SavedRecordsPage({super.key});
@@ -20,16 +21,16 @@ class SavedRecordsPage extends StatelessWidget {
         future: dataRepository.fetchDataRecords(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            // 데이터 로딩 중
+            // if data is loading
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            // 에러 발생
+            // error occur
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            // 데이터 없음
+            // no data
             return Center(child: Text('No records found.'));
           } else {
-            // 데이터가 존재할 경우 리스트 표시
+            // if data exist, and no problem then show the record
             final records = snapshot.data!;
             return ListView.separated(
               padding: EdgeInsets.all(16.0),
@@ -37,7 +38,7 @@ class SavedRecordsPage extends StatelessWidget {
               separatorBuilder: (context, index) => SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final record = records[index];
-                // timestamp를 읽기 쉬운 형식으로 변환
+                // change time format
                 final formattedTimestamp = DateFormat('yyyy-MM-dd - kk:mm:ss')
                     .format(DateTime.parse(record.timestamp));
 

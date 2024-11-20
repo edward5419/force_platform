@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             appBarTheme: const AppBarTheme(
               backgroundColor: Colors.blue,
-              foregroundColor: Colors.white, // AppBar의 텍스트와 아이콘 색상
+              foregroundColor: Colors.white,
             ),
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),

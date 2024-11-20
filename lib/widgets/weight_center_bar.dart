@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-// 싱글톤 AudioPlayer 관리자
+//currently audio function is disabled, due to error.!!!!!!!!!!
 class AudioManager {
   static final AudioManager _instance = AudioManager._internal();
   late AudioPlayer _audioPlayer;
@@ -114,8 +114,6 @@ class _WeightCenterBarState extends State<WeightCenterBar> {
   }
 }
 
-// WeightCenterPainter 클래스는 이전과 동일합니다.
-
 class WeightCenterPainter extends CustomPainter {
   final double weightPercentage;
 
@@ -127,7 +125,6 @@ class WeightCenterPainter extends CustomPainter {
       ..color = Colors.grey[300]!
       ..style = PaintingStyle.fill;
 
-    // 배경 바 그리기
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width, size.height),
@@ -138,7 +135,6 @@ class WeightCenterPainter extends CustomPainter {
 
     paint.color = Colors.red.withOpacity(0.3);
 
-    // 왼쪽 경고 영역
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.width * 0.2, size.height),
@@ -147,7 +143,6 @@ class WeightCenterPainter extends CustomPainter {
       paint,
     );
 
-    // 오른쪽 경고 영역
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(size.width * 0.8, 0, size.width * 0.2, size.height),
@@ -156,7 +151,6 @@ class WeightCenterPainter extends CustomPainter {
       paint,
     );
 
-    // 정상 영역 그리기 (중앙 40%)
     paint.color = const Color.fromARGB(255, 135, 227, 138);
     final normalRangeWidth = size.width * 0.2;
     final normalRangeStart = (size.width - normalRangeWidth) / 2;
@@ -168,7 +162,6 @@ class WeightCenterPainter extends CustomPainter {
       paint,
     );
 
-    // 무게 중심 표시 그리기
     paint.color = Colors.red;
     final centerX = size.width * weightPercentage;
     canvas.drawCircle(

@@ -10,7 +10,7 @@ class BluetoothController extends GetxController {
   final String deviceName = "ESP32_BLE_Device";
   final Uuid serviceUuid = Uuid.parse("0000180A-0000-1000-8000-00805F9B34FB");
   final Uuid characteristicUuid =
-      Uuid.parse("beb5483e-36e1-4688-b7f5-ea07361b26a8"); // 단일 특성 UUID
+      Uuid.parse("beb5483e-36e1-4688-b7f5-ea07361b26a8"); //
 
   StreamSubscription<DiscoveredDevice>? scanStream;
   StreamSubscription<ConnectionStateUpdate>? connection;
@@ -66,7 +66,7 @@ class BluetoothController extends GetxController {
   void onInit() {
     super.onInit();
     checkPermissionsAndStartScan();
-    print("블루투스 프로세스 시작");
+    print("init bluetooth process");
   }
 
   @override
@@ -80,7 +80,7 @@ class BluetoothController extends GetxController {
   // 권한 확인 및 스캔 시작
   void checkPermissionsAndStartScan() async {
     if (!_isConnected.value) {
-      print("스캔시작");
+      print("scan start");
       startScan();
     }
   }
@@ -98,22 +98,21 @@ class BluetoothController extends GetxController {
         espDevice = device;
         _isScanning.value = false;
 
-        print("디바이스 상태 : ${device.connectable}");
+        print("device status : ${device.connectable}");
         scanStream?.cancel();
         connectToDevice();
       }
     }, onError: (Object error) {
-      // 스캔 중 에러 처리
+      // if error occur
       _isScanning.value = false;
-      print('스캔 에러: $error');
+      print('scan error: $error');
     });
   }
 
-  // 선택한 디바이스에 연결
+  // connect to device
   void connectToDevice() {
     if (espDevice == null) return;
 
-    // 장치에 연결
     connection = flutterReactiveBle
         .connectToDevice(
       id: espDevice!.id,
@@ -126,31 +125,29 @@ class BluetoothController extends GetxController {
       if (connectionState.connectionState == DeviceConnectionState.connected) {
         if (!_isConnected.value) {
           _isConnected.value = true;
-          print('장치에 연결되었습니다.');
+          print('connected device');
           //subscribeToNotifications();
         }
       } else if (connectionState.connectionState ==
           DeviceConnectionState.disconnected) {
         if (_isConnected.value) {
           _isConnected.value = false;
-          print('장치 연결이 해제되었습니다.');
-          // 노티피케이션 구독 취소
+          print('disconnected.');
+          // cancel notification
           notificationStream?.cancel();
           notificationStream = null;
         }
-        // 필요 시 재연결 로직 추가
       }
     }, onError: (Object error) {
-      // 연결 중 에러 처리
-      print('연결 에러: $error');
+      print('error: $error');
     });
   }
 
-  // 단일 특성 노티피케이션 구독
+  //sub noti
   void subscribeToNotifications() {
     if (espDevice == null) return;
 
-    // 기존 구독이 있으면 취소
+    // if there is alredy exsist a noti, cancel first
     notificationStream?.cancel();
     notificationStream = null;
 
@@ -167,7 +164,7 @@ class BluetoothController extends GetxController {
         .listen((data) {
       String dataString = String.fromCharCodes(data).trim();
 
-      // 데이터 형식: "weight1,weight2"
+      // data structure: "weight1,weight2"
       List<String> parts = dataString.split(',');
       if (parts.length == 2) {
         double? value1 = double.tryParse(parts[0]);
@@ -177,16 +174,15 @@ class BluetoothController extends GetxController {
           _receivedData2.value = value2.toString();
 
           dataRepository.addData(value1, value2);
-          //print("수신된 데이터: $value1, $value2");
         } else {
-          print("데이터 파싱 오류: $dataString");
+          print("parsing error: $dataString");
         }
       } else {
-        print("유효하지 않은 데이터 형식: $dataString");
+        print("not valid: $dataString");
       }
     }, onError: (Object error) {
       // 데이터 수신 중 에러 처리
-      print('노티피케이션 에러: $error');
+      print('noti error: $error');
     });
   }
 

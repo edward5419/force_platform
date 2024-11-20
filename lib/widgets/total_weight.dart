@@ -34,12 +34,12 @@ class TotalWeight extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(width: 4), // 숫자와 "KG" 사이에 약간의 간격을 추가
+                SizedBox(width: 4), 
                 Text(
                   "KG",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20, // "KG" 텍스트의 크기를 조정
+                    fontSize: 20, // 
                   ),
                 )
               ],

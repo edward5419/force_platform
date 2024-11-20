@@ -1,3 +1,5 @@
+
+//configuration for chart data length
 class ChartSetting {
   ChartSetting._();
 

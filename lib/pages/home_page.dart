@@ -45,12 +45,11 @@ class HomePageBody extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15)),
                   margin: EdgeInsets.all(20),
                   child: InkWell(
-                    // InkWell을 Card 내부로 이동
                     onTap: () {
                       Get.toNamed('/saved_records_page');
                       print("Pending actions card tapped");
                     },
-                    borderRadius: BorderRadius.circular(15), // Card와 같은 모서리 반경
+                    borderRadius: BorderRadius.circular(15), 
                     child: Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -14,7 +14,7 @@ class DatabaseHelper {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    // 데이터베이스 초기화
+    // init database
     _database = await _initDatabase();
     return _database!;
   }
@@ -27,7 +27,7 @@ class DatabaseHelper {
       path,
       version: 1,
       onCreate: _onCreate,
-      // 향후 스키마 변경 시 onUpgrade를 정의할 수 있습니다.
+      
     );
   }
 
@@ -66,3 +66,5 @@ class DatabaseHelper {
     db.close();
   }
 }
+
+

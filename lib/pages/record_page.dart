@@ -6,6 +6,7 @@ import 'package:force_platform/widgets/total_weight.dart';
 import 'package:force_platform/widgets/weight_center_bar.dart';
 import 'package:get/get.dart';
 import 'package:force_platform/settings/chart_setting.dart';
+import '../models/data_record.dart';
 
 class RecordPage extends StatelessWidget {
   const RecordPage({super.key});
@@ -128,12 +129,11 @@ class RecordPage extends StatelessWidget {
 }
 
 double getAvg(List<double> list) {
-  // 0이 아닌 값만 필터링
+
   List<double> filteredList = list.where((value) => value != 0).toList();
 
-  // 필터링된 리스트가 비어있지 않은지 확인
   if (filteredList.isEmpty) {
-    return 0; // 0으로 반환하거나 다른 기본값을 설정
+    return 0; 
   }
 
   double sum = filteredList.reduce((a, b) => a + b);
