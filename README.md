@@ -17,3 +17,7 @@ The following devices will be required:
 - ESP32 development board
 - Two load cells
 - ADS1220 ADC module
+
+- example photo
+- ![homepage](https://github.com/edward5419/force_platform/blob/main/readme_data/home_page.jpg)
+- 
