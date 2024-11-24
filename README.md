@@ -28,6 +28,6 @@ Example image
 - Record page
 ![record page](https://github.com/edward5419/force_platform/raw/main/readme_data/record_page.jpg)
 - test video
-[test bedio](https://github.com/user-attachments/assets/1f390820-5fd3-4810-aa8d-b18d4df8a1db)
+  [click to watch](https://github.com/user-attachments/assets/1f390820-5fd3-4810-aa8d-b18d4df8a1db)
 
 
