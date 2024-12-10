@@ -7,7 +7,7 @@ The following technologies will be used for this project:
 - Flutter
 - Embedded System
 - Firmware
-- DSP (Digital Signal Processing)
+- Signal Processing
 - ADC (Analog-to-Digital Converter)
 - Bluetooth (BLE)
 
