@@ -19,14 +19,18 @@ The following devices will be required:
 - ADS1220 ADC module
 
 Example image
-- Homepage
-![home page](https://github.com/edward5419/force_platform/raw/main/readme_data/home_page.jpg)
-- Measure page
-![measure page](https://github.com/edward5419/force_platform/raw/main/readme_data/measure_page.jpg)
-- Record List
-![record list](https://github.com/edward5419/force_platform/raw/main/readme_data/record_list.jpg)
-- Record page
-![record page](https://github.com/edward5419/force_platform/raw/main/readme_data/record_page.jpg)
+- Homepage  
+![Home Page](https://github.com/edward5419/force_platform/raw/main/readme_data/home_page.jpg)
+
+- Measure Page  
+![Measure Page](https://github.com/edward5419/force_platform/raw/main/readme_data/measure_page.jpg)
+
+- Record List  
+![Record List](https://github.com/edward5419/force_platform/raw/main/readme_data/record_list.jpg)
+
+- Record Page  
+![Record Page](https://github.com/edward5419/force_platform/raw/main/readme_data/record_page.jpg)
+
 - test video
   [click to watch](https://github.com/user-attachments/assets/1f390820-5fd3-4810-aa8d-b18d4df8a1db)
 
